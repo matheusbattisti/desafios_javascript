@@ -38,3 +38,58 @@ function mediaArray(arr) {
 const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const media = mediaArray(numeros);
 console.log(`A média dos elementos do array é ${media.toFixed(2)}.`);
+
+// Objetos
+// 27 - calcular a soma dos números em um objeto
+const numerosObject = {
+  a: 5,
+  b: 10,
+  c: 15,
+};
+
+function somaValoresObjeto(obj) {
+  let soma = 0;
+  for (const chave in obj) {
+    if (obj.hasOwnProperty(chave) && typeof obj[chave] === "number") {
+      soma += obj[chave];
+    }
+  }
+  return soma;
+}
+
+console.log(`Soma dos valores do objeto: ${somaValoresObjeto(numerosObject)}`);
+
+// 28 - filtrar propriedades de um objeto
+const pessoa = {
+  nome: "João",
+  idade: 30,
+  profissao: "Engenheiro",
+  hobbies: ["Futebol", "Leitura", "Viagens"],
+};
+
+function filtrarPropriedades(obj, propriedadesPermitidas) {
+  const newObj = {};
+  for (const prop of propriedadesPermitidas) {
+    if (obj.hasOwnProperty(prop)) {
+      newObj[prop] = obj[prop];
+    }
+  }
+  return newObj;
+}
+
+const propriedadesPermitidas = ["nome", "profissao"];
+const pessoaFiltrada = filtrarPropriedades(pessoa, propriedadesPermitidas);
+console.log("Objeto Pessoa filtrado com propriedades permitidas:");
+console.log(pessoaFiltrada);
+
+// 29 - unindo objetos
+const objetoA = { a: 1, b: 2 };
+const objetoB = { b: 3, c: 4 };
+
+function unirObjetos(obj1, obj2) {
+  return { ...obj1, ...obj2 };
+}
+
+const objetoUnido = unirObjetos(objetoA, objetoB);
+console.log("Objeto unido:");
+console.log(objetoUnido);

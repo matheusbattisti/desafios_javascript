@@ -1,6 +1,6 @@
 // Callback
 
-// 38 - temporizador personalizado
+// 39 - temporizador personalizado
 function temporizadorPersonalizado(segundos, acao) {
   setTimeout(acao, segundos * 1000);
 }
@@ -9,7 +9,7 @@ function temporizadorPersonalizado(segundos, acao) {
 //   console.log("3 segundos se passaram!");
 // });
 
-// 39 - mapear array
+// 40 - mapear array
 function mapearArray(valores, transformacao) {
   const resultado = [];
   for (const valor of valores) {
@@ -22,7 +22,7 @@ const numeros = [1, 2, 3, 4, 5];
 const quadrados = mapearArray(numeros, (numero) => numero * numero);
 console.log(quadrados); // [1, 4, 9, 16, 25]
 
-// 40 - execução condicional
+// 41 - execução condicional
 function execucaoCondicional(verificar, executar, naoExecutar) {
   if (verificar()) {
     executar();
@@ -39,7 +39,7 @@ execucaoCondicional(
 
 // Promises
 
-// 41 - Simulação de API
+// 42 - Simulação de API
 function simularAPI(resultado, demora) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -52,7 +52,7 @@ simularAPI("Olá, Mundo!", 1000).then((resultado) => {
   console.log(resultado); // "Olá, Mundo!"
 });
 
-// 42 - carregando dados com fetch
+// 43 - carregando dados com fetch
 function carregarDadosFetch(url) {
   return fetch(url).then((response) => response.json());
 }
@@ -63,7 +63,7 @@ carregarDadosFetch("https://jsonplaceholder.typicode.com/todos/1").then(
   }
 );
 
-// 43 - cadeia de promises
+// 44 - cadeia de promises
 async function executarEmSequencia(urls) {
   const dadosArray = [];
   for (const url of urls) {
@@ -81,3 +81,25 @@ const urls = [
 executarEmSequencia(urls).then((dadosArray) => {
   console.log(dadosArray);
 });
+
+// 45 - retry em promises
+function tentarNovamente(funcao, maxTentativas, intervalo) {
+  return new Promise(async (resolve, reject) => {
+    for (let tentativa = 1; tentativa <= maxTentativas; tentativa++) {
+      try {
+        const resultado = await funcao();
+        return resolve(resultado);
+      } catch (erro) {
+        if (tentativa === maxTentativas) return reject(erro);
+        await new Promise((r) => setTimeout(r, intervalo));
+      }
+    }
+  });
+}
+
+// Exemplo de uso
+const fetchComRetry = () => fetch("https://lalala.com.br");
+tentarNovamente(fetchComRetry, 3, 1000)
+  .then((response) => response.json())
+  .then((dados) => console.log(dados))
+  .catch((erro) => console.error("Falha após 3 tentativas", erro));
